@@ -2,14 +2,15 @@
 
 <head>
     <title>
-        min hemsida
+        orm
     </title>
     <style>
         h1 {
             color: hotpink;
-            font-style: italic;
+            font-style: unset;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-size: 125px;
+            
 
         }
 
@@ -17,13 +18,116 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+        }
+
+        .game {
+            height: 400px;
+            width: 400px;
+            border: 4px solid purple;
+            background-image: url(https://stsci-opo.org/STScI-01EVT5SBNJGTCVK31KG7M53BV7.jpg);
+            position: relative;
+        }
+
+        .snake {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 225px;
+            top: 200px;
+
+        }
+
+        .snake1 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 205px;
+            top: 200px;
+        }
+
+        .snake2 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 185px;
+            top: 200px;
+            position: absolute;
+        }
+
+        .snake3 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 165px;
+            top: 200px;
+            position: absolute;
+        }
+
+        .snake4 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 165px;
+            top: 180px;
+            position: absolute;
+        }
+
+        .snake5 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 165px;
+            top: 160px;
+            position: absolute;
+        }
+
+        .snake6 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 145px;
+            top: 160px;
+            position: absolute;
+        }
+
+        .snake7 {
+            background-color: fuchsia;
+            width: 20px;
+            height: 20px;
+            left: 125px;
+            top: 160px;
+            position: absolute;
+        }
+
+        .apple {
+            background-color: red;
+            width: 20px;
+            height: 20px;
+            top: 200px;
+            left: 300px;
+            position: absolute;
         }
     </style>
 
 </head>
 
 <body>
-    <h1>Min hemsida</h1>
+    <h1>orm</h1>
+    <div class="game">
+        <div class="snake"></div>
+        <div class="snake1"></div>
+        <div class="snake2"></div>
+        <div class="snake3"></div>
+        <div class="snake4"></div>
+        <div class="snake5"></div>
+        <div class="snake6"></div>
+        <div class="snake7"></div>
+        <div class="apple"></div>
+    </div>
+
 </body>
 
 </html>
