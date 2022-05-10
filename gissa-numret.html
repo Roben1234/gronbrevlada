@@ -1,16 +1,30 @@
 <html>
 <h1>rätt</h1>
 <script>
-    var gissadeRätt = false
-    var rättnummer = 13
-    while (gissadeRätt == false) {
+    var correct = false
+    var number = Math.round(Math.random()*100)
+    while (correct == false) {
+
         var gissning = prompt("Gissa numret", "1")
         console.log(gissning)
-        gissadeRätt = true
+
+        var isLowerThanNumber = gissning < number;
+
+        if (isLowerThanNumber){
+            alert ("svaret är högre")
+        }
+
+        var isHigherThanNumber = gissning > number;
+        if (isHigherThanNumber){
+            alert ("svaret är lägre")
+        }
         
 
+        if (gissning == number) {
+            correct = true
+        }
     }
-    
+    alert("Du svarade rätt!")
 
 </script>
 
