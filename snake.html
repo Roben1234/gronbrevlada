@@ -1,0 +1,122 @@
+<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Snake</title>
+  <style>
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      background-color: black;
+    }
+
+    #game-board {
+      background-color: #CCC;
+      width: 100vmin;
+      height: 100vmin;
+      display: grid;
+      grid-template-rows: repeat(21, 1fr);
+      grid-template-columns: repeat(21, 1fr);
+    }
+
+    .snake {
+      background-color: hsl(200, 100%, 50%);
+      border: .25vmin solid black;
+    }
+
+    .food {
+      background-color: hsl(50, 100%, 50%);
+      border: .25vmin solid black;
+    }
+  </style>
+  <script src="game.js" defer type="module">
+    import { onSnake, expandSnake } from './snake.js'
+    import { randomGridPosition } from './grid.js'
+
+    let food = getRandomFoodPosition()
+    const EXPANSION_RATE = 5
+
+    export function update() {
+      if (onSnake(food)) {
+        expandSnake(EXPANSION_RATE)
+        food = getRandomFoodPosition()
+      }
+    }
+
+    export function draw(gameBoard) {
+      const foodElement = document.createElement('div')
+      foodElement.style.gridRowStart = food.y
+      foodElement.style.gridColumnStart = food.x
+      foodElement.classList.add('food')
+      gameBoard.appendChild(foodElement)
+    }
+
+    function getRandomFoodPosition() {
+      let newFoodPosition
+      while (newFoodPosition == null || onSnake(newFoodPosition)) {
+        newFoodPosition = randomGridPosition()
+      }
+      return newFoodPosition
+    }
+
+    import { update as updateSnake, draw as drawSnake, SNAKE_SPEED, getSnakeHead, snakeIntersection } from './snake.js'
+    import { update as updateFood, draw as drawFood } from './food.js'
+    import { outsideGrid } from './grid.js'
+
+    let lastRenderTime = 0
+    let gameOver = false
+    const gameBoard = document.getElementById('game-board')
+
+    function main(currentTime) {
+      if (gameOver) {
+        if (confirm('You lost. Press ok to restart.')) {
+          window.location = '/'
+        }
+        return
+      }
+
+
+      window.requestAnimationFrame(main)
+      const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
+      if (secondsSinceLastRender < 1 / SNAKE_SPEED) return
+
+
+      lastRenderTime = currentTime
+
+      update()
+      draw()
+    }
+
+    window.requestAnimationFrame(main)
+
+    function update() {
+      updateSnake()
+      updateFood()
+      checkDeath()
+    }
+
+    function draw() {
+      gameBoard.innerHTML = ''
+      drawSnake(gameBoard)
+      drawFood(gameBoard)
+    }
+
+    function checkDeath() {
+      gameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
+    }
+  </script>
+</head>
+
+<body>
+  <div id="game-board"></div>
+  
+</body>
+
+</html>
