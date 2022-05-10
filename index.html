@@ -10,7 +10,7 @@
             font-style: unset;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-size: 125px;
-            
+
 
         }
 
@@ -115,19 +115,63 @@
 </head>
 
 <body>
+
+
     <h1>orm</h1>
+
     <div class="game">
-        <div class="snake"></div>
-        <div class="snake1"></div>
-        <div class="snake2"></div>
-        <div class="snake3"></div>
-        <div class="snake4"></div>
-        <div class="snake5"></div>
-        <div class="snake6"></div>
-        <div class="snake7"></div>
+        <div class="snake changeColor"></div>
+        <div class="snake1 changeColor"></div>
+        <div class="snake2 changeColor"></div>
+        <div class="snake3 changeColor"></div>
+        <div class="snake4 changeColor"></div>
+        <div class="snake5 changeColor"></div>
+        <div class="snake6 changeColor"></div>
+        <div class="snake7 changeColor"></div>
         <div class="apple"></div>
     </div>
+    <script>
+        var isRed = false
+        var isBlue = false
+        function changeAll(color) {
+            var snakes = document.querySelectorAll(".changeColor")
+            snakes.forEach(snake => snake.style.backgroundColor = color)
+        }
+        function changeColor(event) {
+            console.log("Red", isRed, "Blue", isBlue)
 
+            if (isRed == false && isBlue == false) {
+                changeAll('red')
+                isRed = true
+            }
+            else if (isRed == true) {
+                isBlue = true
+                changeAll('blue')
+                isRed = false
+
+            }
+            else {
+                isRed = false
+                isBlue = false
+                changeAll('fuchsia')
+            }
+        }
+        function growSnake() {
+            var snakeSegment = new HTMLDivElement()
+            snakeSegment.style.backgroundColor = "red"
+            snakeSegment.style.width = 
+            snakeSegment.style.height = 
+            document.querySelector(".game").appendChild(snakeSegment)
+
+        }
+
+        function onSnakeClick() {
+            changeColor();
+            growSnake()
+        }
+        document.querySelectorAll(".changeColor").forEach(element => element.addEventListener("click", onSnakeClick))
+
+    </script>
 </body>
 
 </html>
