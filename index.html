@@ -24,12 +24,12 @@
         .game {
             height: 400px;
             width: 400px;
-            border: 4px solid purple;
-            margin:auto purple;
+            border: 10px solid purple;
+            margin: auto purple;
             background-image: url(https://stsci-opo.org/STScI-01EVT5SBNJGTCVK31KG7M53BV7.jpg);
             position: relative;
-           
-            
+
+
         }
 
         .snake {
@@ -126,6 +126,7 @@
             text-decoration: double;
             text-shadow: fuchsia;
             text-justify: auto;
+            text-anchor: end;
 
         }
     </style>
@@ -175,7 +176,7 @@
                 changeAll('fuchsia')
             }
         }
-        var direction = "down";
+        var direction = "up";
 
         function moveSnake() {
 
@@ -189,25 +190,46 @@
                 console.log("orm1 ror sig")
                 var snakeHead1 = document.querySelector(".snake1")
                 console.log(snakeHead1.offsetTop + 20)
-                snakeHead1.style.top = snakeHead1.offsetTop + 20
-                snakeHead1.style.left = "225px"
+                if (direction == "down") {
+                    snakeHead1.style.top = snakeHead1.offsetTop + 20
+                    snakeHead1.style.left = "225px"
+                }
                 if (snakeHead1.style.top == "380px" || snakeHead1.style.left == "380px") {
-                      window.clearInterval(gameLoop)
+                    window.clearInterval(gameLoop)
                 }
 
-                 
-                
+
+
             }, 1000)
         }
 
-        //window.addEventListener(
-           // "keydown",
-           // (event) => {
-            //    console.log(event.keyCode);
-            //    if ("keydown" = 40)
-           // }
-       // )
+        window.addEventListener(
+            "keydown",
+            (event) => {
+                event.preventDefault();
+                console.log(event.keyCode);
+                if (40 == event.keyCode) {
+                    console.log("down")
+                    direction = "down"
+                }
 
+                if (39 == event.keyCode) {
+                    console.log("right")
+                    direction = "right"
+                }
+
+                if (37 == event.keyCode) {
+                    console.log("left")
+                    direction = "left"
+                }
+
+                if (38 == event.keyCode) {
+                    console.log("up")
+                    direction = "up"
+
+                }
+            }
+        )
 
 
 
