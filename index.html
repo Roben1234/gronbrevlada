@@ -1,15 +1,26 @@
 <html>
 
+
 <head>
     <title>
-        orm
+        Snake in JavaScript
     </title>
     <style>
+        .counter {
+            color: gold;
+            font-style: normal;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            position: absolute;
+            top: 230px;
+            left: 430px;
+            background-color: purple;
+        }
+
         h1 {
             color: hotpink;
             font-style: unset;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 125px;
+            font-size: 100px;
 
 
         }
@@ -47,7 +58,7 @@
             width: 20px;
             height: 20px;
             position: absolute;
-            left: 205px;
+            left: 200px;
             top: 200px;
         }
 
@@ -109,8 +120,8 @@
             background-color: red;
             width: 20px;
             height: 20px;
-            top: 200px;
-            left: 300px;
+            /* top: 200px;
+            left: 300px; */
             position: absolute;
         }
 
@@ -118,7 +129,7 @@
             background-color: deeppink;
             border: darkorchid;
             margin: 20px;
-            padding: 10px;
+            padding: 20px;
             font-style: initial;
             font-family: monospace;
             font-size: 20px;
@@ -127,28 +138,47 @@
             text-shadow: fuchsia;
             text-justify: auto;
             text-anchor: end;
+            position: absolute;
+            top: 750px;
+            left: 527.888px;
 
+        }
+
+        button {
+            background-color: blueviolet;
+            color: gold;
+            font-family: monospace;
+            position: absolute;
+            top: 700px;
+            left: 584px;
+            size: 50px;
+            font-size: larger;
         }
     </style>
 
 </head>
 
 <body>
+    <h2 class="counter"> Score: 0 </h2>
+
+    <h1>Snake in JavaScript</h1>
+    <a href="gissa-numret.html">GISSA SIFFRAN</a>¨
+
+    <!-- <input type="password" id="mixBut" value="start snake" /> -->
+    <button class="StartSnake">Start Snake</button>
 
 
-    <h1>orm</h1>
-    <a href="gissa-numret.html">GISSA SIFFRAN</a>
 
     <div class="game">
-        <div class="snake changeColor"></div>
+        <!-- <div class="snake changeColor"></div> -->
         <div class="snake1 changeColor"></div>
-        <div class="snake2 changeColor"></div>
+        <!-- <div class="snake2 changeColor"></div>
         <div class="snake3 changeColor"></div>
         <div class="snake4 changeColor"></div>
         <div class="snake5 changeColor"></div>
         <div class="snake6 changeColor"></div>
-        <div class="snake7 changeColor"></div>
-        <div class="apple"></div>
+        <div class="snake7 changeColor"></div> -->
+        <!-- <div class="apple"></div> -->
     </div>
     <script>
         var isRed = false
@@ -176,31 +206,85 @@
                 changeAll('fuchsia')
             }
         }
+
+        function createApple() {
+            var apple = document.createElement("div");
+            var appleLeft = Math.random() * 380
+            var appleTop = Math.random() * 380
+            apple.classList.add("apple");
+            document.querySelector(".game").append(apple);
+            apple.style.left = Math.random() * 380
+            apple.style.top = Math.random() * 380
+            apple.style.left = Math.ceil(appleLeft / 20) * 20
+            apple.style.top = Math.ceil(appleTop / 20) * 20
+
+
+
+            return apple;
+        }
+
+        // let counter = 0
+        // setInterval(() => {
+        //     counter++
+        //     console.log(counter)
+        // },1000);
+
+        let btncounter = document.querySelector(".counter")
+
         var direction = "up";
+        var Snake1Grow = 0
+        var gameLoop = null;
 
-        function moveSnake() {
+        function startGame() {
+            window.clearInterval(gameLoop)
+            document.querySelector(".apple")?.remove()
+            var apple = createApple();
+            var snakeHead1 = document.querySelector(".snake1")
+            snakeHead1.style.top = 200;
+            snakeHead1.style.left = 200;
+            Snake1Grow = 0
+            btncounter.innerHTML = Snake1Grow
 
-            var gameLoop = window.setInterval(() => {
+            gameLoop = window.setInterval(() => {
                 console.log("ormen ror sig " + direction)
-                var snakeHead = document.querySelector(".snake")
-                console.log(snakeHead.offsetTop + 20)
-                snakeHead.style.top = snakeHead.offsetTop + 20
-                snakeHead.style.left = "245px"
+                //var snakeHead = document.querySelector(".snake")
+                //console.log(snakeHead.offsetTop + 20)
+                //snakeHead.style.top = snakeHead.offsetTop + 20
+                //snakeHead.style.left = "245px"
+
 
                 console.log("orm1 ror sig")
-                var snakeHead1 = document.querySelector(".snake1")
-                console.log(snakeHead1.offsetTop + 20)
+                //console.log(snakeHead1.offsetTop + 20)
                 if (direction == "down") {
                     snakeHead1.style.top = snakeHead1.offsetTop + 20
-                    snakeHead1.style.left = "225px"
                 }
-                if (snakeHead1.style.top == "380px" || snakeHead1.style.left == "380px") {
+                if (direction == "up") {
+                    snakeHead1.style.top = snakeHead1.offsetTop - 20
+                }
+                if (direction == "left") {
+                    snakeHead1.style.left = snakeHead1.offsetLeft - 20
+                }
+                if (direction == "right") {
+                    snakeHead1.style.left = snakeHead1.offsetLeft + 20
+                }
+                console.log(snakeHead1.style.left)
+                if (snakeHead1.offsetTop > 380 || snakeHead1.offsetLeft > 380 || snakeHead1.offsetTop < 0 || snakeHead1.offsetLeft < 0) {
                     window.clearInterval(gameLoop)
                 }
 
+                if (apple.offsetLeft == snakeHead1.offsetLeft && apple.offsetTop == snakeHead1.offsetTop) {
+                    Snake1Grow = Snake1Grow + 1
+                    btncounter.innerHTML = Snake1Grow
+                    apple.remove()
+                    apple = createApple()
+                    console.log(Snake1Grow)
+                }
 
 
-            }, 1000)
+
+
+
+            }, 250)
         }
 
         window.addEventListener(
@@ -237,7 +321,8 @@
             changeColor()
         }
         document.querySelectorAll(".changeColor").forEach(element => element.addEventListener("click", onSnakeClick))
-        moveSnake();
+        document.querySelectorAll(".StartSnake").forEach(element => element.addEventListener("click", startGame))
+        //startGame();
     </script>
 </body>
 

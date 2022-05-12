@@ -1,8 +1,35 @@
 <html>
-<h1>rätt</h1>
+<h1></h1>
+
+<body>
+    <style>
+        a {
+            background-color: deeppink;
+            border: darkorchid;
+            margin: 20px;
+            padding: 20px;
+            font-style: initial;
+            font-family: monospace;
+            font-size: 20px;
+            border-radius: 20px;
+            text-decoration: double;
+            text-shadow: fuchsia;
+            text-justify: auto;
+            text-anchor: end;
+            position: absolute;
+            font-size: 150px;
+            margin:auto;
+            top: 200px;
+            left: 125px;
+           
+        }
+    </style>
+</body>
+<a href="index.html">Spela Snake</a>
+
 <script>
     var correct = false
-    var number = Math.round(Math.random()*100)
+    var number = Math.round(Math.random() * 100)
     while (correct == false) {
 
         var gissning = prompt("Gissa numret", "1")
@@ -10,21 +37,22 @@
 
         var isLowerThanNumber = gissning < number;
 
-        if (isLowerThanNumber){
-            alert ("svaret är högre")
+        if (isLowerThanNumber) {
+            alert("svaret är högre")
         }
 
         var isHigherThanNumber = gissning > number;
-        if (isHigherThanNumber){
-            alert ("svaret är lägre")
+        if (isHigherThanNumber) {
+            alert("svaret är lägre")
         }
-        
+
 
         if (gissning == number) {
             correct = true
         }
     }
     alert("Du svarade rätt!")
+
 
 </script>
 
