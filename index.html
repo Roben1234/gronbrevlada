@@ -58,8 +58,6 @@
             width: 20px;
             height: 20px;
             position: absolute;
-            left: 200px;
-            top: 200px;
         }
 
         .snake2 {
@@ -207,6 +205,7 @@
             }
         }
 
+        // Skapa äpplen
         function createApple() {
             var apple = document.createElement("div");
             var appleLeft = Math.random() * 380
@@ -235,11 +234,13 @@
         var Snake1Grow = 0
         var gameLoop = null;
 
+        // Starta spelet
         function startGame() {
             window.clearInterval(gameLoop)
             document.querySelector(".apple")?.remove()
             var apple = createApple();
             var snakeHead1 = document.querySelector(".snake1")
+            var snakeTail = [];
             snakeHead1.style.top = 200;
             snakeHead1.style.left = 200;
             Snake1Grow = 0
@@ -252,7 +253,15 @@
                 //snakeHead.style.top = snakeHead.offsetTop + 20
                 //snakeHead.style.left = "245px"
 
+                //Flytta svansen ett steg framåt
+                for (var index in snakeTail) {
+                    var frontSegment = snakeTail[index - 1] ?? snakeHead1;
 
+                    snakeTail[index].style.left = frontSegment.offsetLeft; 
+                    snakeTail[index].style.top = frontSegment.offsetTop; 
+                }
+
+                // flytta orm efter knapptryck
                 console.log("orm1 ror sig")
                 //console.log(snakeHead1.offsetTop + 20)
                 if (direction == "down") {
@@ -267,17 +276,25 @@
                 if (direction == "right") {
                     snakeHead1.style.left = snakeHead1.offsetLeft + 20
                 }
+
+                // border för spelruta
                 console.log(snakeHead1.style.left)
                 if (snakeHead1.offsetTop > 380 || snakeHead1.offsetLeft > 380 || snakeHead1.offsetTop < 0 || snakeHead1.offsetLeft < 0) {
                     window.clearInterval(gameLoop)
                 }
 
+                // Orm äter äpple
                 if (apple.offsetLeft == snakeHead1.offsetLeft && apple.offsetTop == snakeHead1.offsetTop) {
                     Snake1Grow = Snake1Grow + 1
                     btncounter.innerHTML = Snake1Grow
                     apple.remove()
                     apple = createApple()
-                    console.log(Snake1Grow)
+
+                    //Lägg till en bit i svansen
+                    var tailSegment = document.createElement("div");
+                    tailSegment.classList.add("snake1");
+                    snakeTail.unshift(tailSegment)
+                    document.querySelector(".game").append(tailSegment);
                 }
 
 
@@ -317,6 +334,7 @@
 
 
 
+        // START KNAPP
         function onSnakeClick() {
             changeColor()
         }
