@@ -179,6 +179,7 @@
         <!-- <div class="apple"></div> -->
     </div>
     <script>
+        // Color change
         var isRed = false
         var isBlue = false
         function changeAll(color) {
@@ -186,7 +187,7 @@
             snakes.forEach(snake => snake.style.backgroundColor = color)
         }
         function changeColor(event) {
-            console.log("Red", isRed, "Blue", isBlue)
+            ("Red", isRed, "Blue", isBlue)
 
             if (isRed == false && isBlue == false) {
                 changeAll('red')
@@ -233,6 +234,7 @@
         var direction = "up";
         var Snake1Grow = 0
         var gameLoop = null;
+        var snakeTail = [];
 
         // Starta spelet
         function startGame() {
@@ -240,29 +242,35 @@
             document.querySelector(".apple")?.remove()
             var apple = createApple();
             var snakeHead1 = document.querySelector(".snake1")
-            var snakeTail = [];
             snakeHead1.style.top = 200;
             snakeHead1.style.left = 200;
             Snake1Grow = 0
             btncounter.innerHTML = Snake1Grow
 
+            for (var tailSegment of snakeTail) {
+                tailSegment.remove()
+            }
+            snakeTail = []
+
             gameLoop = window.setInterval(() => {
-                console.log("ormen ror sig " + direction)
+                // console.log("ormen ror sig " + direction)
                 //var snakeHead = document.querySelector(".snake")
                 //console.log(snakeHead.offsetTop + 20)
                 //snakeHead.style.top = snakeHead.offsetTop + 20
                 //snakeHead.style.left = "245px"
 
                 //Flytta svansen ett steg framåt
-                for (var index in snakeTail) {
-                    var frontSegment = snakeTail[index - 1] ?? snakeHead1;
-
-                    snakeTail[index].style.left = frontSegment.offsetLeft; 
-                    snakeTail[index].style.top = frontSegment.offsetTop; 
+                //console.log(snakeTail);
+                for (var index = 0; index < snakeTail.length; index++) {
+                    var frontSegment = snakeTail[index + 1] ?? snakeHead1;
+                    var tailSegment = snakeTail[index];
+                    tailSegment.style.left = frontSegment.offsetLeft;
+                    tailSegment.style.top = frontSegment.offsetTop;
+                    
                 }
 
                 // flytta orm efter knapptryck
-                console.log("orm1 ror sig")
+                // console.log("orm1 ror sig")
                 //console.log(snakeHead1.offsetTop + 20)
                 if (direction == "down") {
                     snakeHead1.style.top = snakeHead1.offsetTop + 20
@@ -277,8 +285,16 @@
                     snakeHead1.style.left = snakeHead1.offsetLeft + 20
                 }
 
+                //Kolla om vi krockat i svansen
+                for (var index = 0; index < snakeTail.length; index++) {
+                    var tailSegment = snakeTail[index];
+                    if (tailSegment.offsetLeft == snakeHead1.offsetLeft && tailSegment.offsetTop == snakeHead1.offsetTop) {
+                        window.clearInterval(gameLoop)
+                    }   
+                }
+
                 // border för spelruta
-                console.log(snakeHead1.style.left)
+                (snakeHead1.style.left)
                 if (snakeHead1.offsetTop > 380 || snakeHead1.offsetLeft > 380 || snakeHead1.offsetTop < 0 || snakeHead1.offsetLeft < 0) {
                     window.clearInterval(gameLoop)
                 }
@@ -293,7 +309,7 @@
                     //Lägg till en bit i svansen
                     var tailSegment = document.createElement("div");
                     tailSegment.classList.add("snake1");
-                    snakeTail.unshift(tailSegment)
+                    snakeTail.push(tailSegment)
                     document.querySelector(".game").append(tailSegment);
                 }
 
@@ -301,31 +317,28 @@
 
 
 
-            }, 250)
+            }, 150)
         }
 
+        // direction ish
         window.addEventListener(
             "keydown",
             (event) => {
                 event.preventDefault();
-                console.log(event.keyCode);
+                (event.keyCode);
                 if (40 == event.keyCode) {
-                    console.log("down")
                     direction = "down"
                 }
 
                 if (39 == event.keyCode) {
-                    console.log("right")
                     direction = "right"
                 }
 
                 if (37 == event.keyCode) {
-                    console.log("left")
                     direction = "left"
                 }
 
                 if (38 == event.keyCode) {
-                    console.log("up")
                     direction = "up"
 
                 }
